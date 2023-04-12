@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cadastro</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Cadastro de Carro</h1>
+    <p>Preencha com os dados do carro</p>
+    <form action="/cadastrocarro" method="POST">
+        <p>
+            Marca: <select name="marca">
+                <option>VW</option>
+                <option>Fiat</option>
+                <option>Ford</option>
+                <option>GM</option>
+            </select>
+        </p>
+        <p>
+            <input type="text" name="modelo" placeholder="modelo">
+        </p>
+        <p>
+            <input type="number" name="ano">
+        </p>
+        <p>
+            <input type="submit" value="salvar">
+        </p>
+    </form>
+  </body>
+</html>

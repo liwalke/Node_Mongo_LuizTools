@@ -1,0 +1,10 @@
+1 - npm install --save dotenv-safe
+2 - Adicionar o arquivo .env na raiz do projeto;
+3 - Adicionar o arquivo .env.example na raiz do projeto. Quando o node rodar, ele vai primeiro procurar este arquivo e ver as variáveis que são obrigatórias, então vai carregar os valores das variáveis obrigatórias que estão no .env
+4 - Ir no primeiro arquivo que será rodado, normalmente é um (index ou app) e importar o dotenv:
+    4.1 - require('dotenv').config()
+    4.2 - O arquivo .env e o index, onde será feito o require de dotenv, devem estar na mesma pasta, esta é a configuração mais comum. Se não estiverem, deve-se passar uma configuração para o dotenv, pouco comum.
+5 - Também é possível carregar o dotenv antes de rodar a aplicação. Ir no package.json e colocar:
+    5.1 - "start": "nodemon -r dotenv/config ./bin/www"
+    5.2 - -r é de require
+6 - Depois é só usar o process.env.VARIABLE

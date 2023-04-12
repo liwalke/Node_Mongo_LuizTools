@@ -1,0 +1,10 @@
+1 - Instalar o express-generator
+2 - express -e --git aula02 (O express-generator vair criar um projeto com nome aula02, -e para usar a view-engine ejs para usar html, --git para criar um .gitignore)
+3 - cd aula02 > npm install
+4 - npm install mongodb
+
+https://www.luiztools.com.br/post/tutorial-nodejs-com-mongodb-mongoose-express-ejs/
+
+x - Instalar Nodemon globalmente:
+    * npm install -g nodemon
+    * "start": "nodemon ./bin/www"

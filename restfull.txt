@@ -1,0 +1,18 @@
+Principais verbos/metódos HTTP
+
+GET = para obter dados/objetos;
+POST = para salvar dados/objetos; Normalmente usado para um novo objeto
+PUT = para salvar dados/objetos ou substituir um dado/objeto; Normalmente usado para substituir um objeto inteiro
+PATCH = para atualizar dados de um objeto;
+DELETE = para excluir um dado/objeto
+
+PRINCIPAIS códigos de retorno de requisições
+200 = OK
+201 = Created
+400 = Bad Request - Requisição errada
+403 = Forbidden - Não possui autorização
+404 = Not Found - Não existe a URL
+422 = Unprocessable Entity - A entidade não atende as regras de negócios
+500 = Internal Server Error
+501 = Not Implemented
+

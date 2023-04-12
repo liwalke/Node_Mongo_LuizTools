@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Carros</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Tabela de Carros</h1>
+    <table>
+      <thead>
+        <tr>
+          <td>Marca</td>
+          <td>Modelo</td>
+          <td>Ano</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (var i = 0; i < carros.length; i++) { %> 
+          <tr>
+            <td> <%= carros[i].marca %> </td>
+            <td> <%= carros[i].modelo %> </td>
+            <td> <%= carros[i].ano %> </td>
+          </tr>
+        <% } %> 
+      </tbody>
+    </table>
+    <div>
+      <a href="/cadastrocarro">Cadastrar Carro</a>
+    </div>
+  </body>
+</html>

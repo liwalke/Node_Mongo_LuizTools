@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+
+  <form action="/newcustomer" method="post" >
+    <label for="nome">Nome: </label>
+      <input type="text" placeholder="Nome" id="nome" name="nome" value="<%=customer.nome%>"><br><br>
+    <label for="idade">Idade: </label>
+      <input type="number" id="idade" name="idade" value="<%=customer.idade%>"><br><br>
+    <label for="uf">Estado: </label>
+      <select onchange="onChanceEstado(this.value)" name="uf" id="uf" selected="<%=customer.uf%>">
+        <option value="NULL">Selecionar</option>
+      </select><br><br>
+    <label for="cidade">Cidade: </label>
+      <select name="cidade" id="cidade" selected="<%=customer.cidade%>">
+        <option value="NULL">Selecionar</option>
+      </select><br><br>
+    
+    <input type="hidden" name="id" value="<%=customer._id%>"/>
+    
+    <button type="submit">Cadastrar</button>
+    <a href="/">Cancelar</a>
+  </form>
+
+</body>
+<script>
+
+  const htmlSelectUf = document.getElementById("uf")
+  const htmlSelectCidade = document.getElementById("cidade")
+
+  fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
+    .then(response => response.json())
+    .then(estados => estados.map(estado => {
+      const newOption = document.createElement("option")
+      newOption.value = estado.id
+      newOption.innerText = estado.nome
+      htmlSelectUf.appendChild(newOption)
+
+      <%
+        if(customer.uf){
+      %>
+        fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/<%=customer.uf%>`)
+        .then(response => response.json())
+        .then(estado => htmlSelectUf.value = "<%= customer.uf %>")
+        .catch(error => alert(error))
+      <%  
+        }
+      %>
+    }))
+    .catch(error => alert(error))
+
+    function onChanceEstado(value){
+      fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${value}/municipios`)
+      .then(response => response.json())
+      .then(cidades => cidades.map(cidade => {
+        const newOption = document.createElement("option")
+        newOption.value = cidade.nome
+        newOption.innerText = cidade.nome
+        htmlSelectCidade.appendChild(newOption)
+      }))
+    }
+
+
+</script>
+</html>

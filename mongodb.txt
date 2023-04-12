@@ -1,0 +1,60 @@
+1 - Instalar o mongodb e o compass;
+2 - Criar a pasta data na raiz de C:\
+3 - Navegar via prompt para a pasta bin do mongo;
+    3.1 - cd C:\Program Files\MongoDB\Server\6.0\bin
+4 - Subir o servidor do mongodb:
+    4.1 - Dentro da pasta bin, executar via prompt:
+        4.1.1 - mongod --dbpath C:\data\
+        4.1.2 - Se der erro, a porta deve estar ocupada ou não tem permissão;
+
+5 - Baixar o mongo shell para conexão com client do mongodb
+    5.1 - Baixar shell
+        5.1.1 - Site Mongodb > Products > Tools > shell
+    5.2 - Extrair os arquivos;
+    5.3 - Abrir a pasta bin que está dentro do que foi extraído;
+    5.4 - Copiar os arquivos da pasta bin e colocar dentro da pasta bin do server que está em:
+        5.4.1 - C:\Program Files\MongoDB\Server\6.0\bin;
+    5.5 - Rodar o mongo shell:
+        5.5.1 - Abrir o prompt cmd;
+        5.5.2 - Navegar até a pasta onde está o mongo shell:
+            5.5.2.1 - cd C:\Program Files\MongoDB\Server\6.0\bin
+        5.5.3 - Executar:
+            5.5.3.1 - mongosh
+        5.5.4 - Pronto! O mongo shell vai procurar um servidor e se conectar nele! Agora é possível usar os comandos de prompt para o mongo
+
+COMANDOS:
+*   show databases
+*   use <dbName>
+*   db.clientes.countDocuments() - Número de elementos dentro da collection clientes
+*   db.clientes.insert({nome: "Elizeu", idade: 30, cidade: "Parobé"})
+*   db.clientes.deleteOne( {_id: ObjetcId("asxfcdasc23fas10c35f4asd13cf")} )
+
+BUSCAS
+*   db.clientes.find() - Retornar todos os clientes
+*   db.clientes.find().pretty - Retornar os clientes formatado para axibição
+*   db.clientes.find( {nome: /elizeu/i} ) - Retornar se tiver algum Elizeu. Foi usado uma expressão regular para pegar valor mesmo minúsculo. O find é case sentitive
+*   db.clientes.find( {nome: "Elizeu", idade: 30 } ).pretty - Foi aplicado uma condição AND (nome e idade) no filtro para busca
+*   db.clientes.find( {nome: { $regex: /lize/ } } ) - Vai retornar todos os documentos que contenham "lize" no nome
+*   db.clientes.find( {idade: { $gte: 20 } } ) - Vai retornar todos os documentos cuja idade seja >= 20.
+        $ne: <value> - não igual
+        $gte: <value> - maior ou igual
+        $gt: <value> - maior
+        $lte: <value> - menor ou igual
+        $in: [ <value>, <value> ] - retorna todos documentos que tenham ao menos um dos valores dentro do array. Lógica OR
+        $all: [ <value>, <value> ] - retorna todos documentos que tenham todos os valores dentro array. Lógica AND
+*   db.clientes.find({}).skip(1) - Retorna todos documentos exceto o primeiro será ignorado pelo skip
+*   db.clientes.find({}).limit(10) - Retorna os 10 primeiros elementos
+*   db.clientes.find({}).skip(10).limit(10) - Retorna os documentos 11 a 20. Usado em paginação
+*   db.clientes.find({}).sort({idade: 1}) - Retorna os documentos ordenados em forma crescente pela idade.
+*   db.clientes.find({}).sort({idade: -1}) - Retorna os documentos ordenados em forma decrescente pela idade.
+
+UPDATE
+*   db.clientes.replaceOne( {nome: "Elizeu"}, {nome: "Elizeu Walker Brizolla", idade: 30, cidade: "Parobé"} ) - O primeiro parâmetro é o filtro, o segundo é o que vai substituir o documento INTEIRO. O ideal é usar o id como filtro.
+*   db.clientes.updateOne( {_id: ObjectId("asd6f1as6d1as6sd36f8g43")}, { $set: {nome: "Elizeu Walker Brizolla"} } ) - Vai buscar o documento pelo Id e alterar SOMENTE o valor de nome.
+*   db.clientes.updateOne( {_id: ObjectId("asd6f1as6d1as6sd36f8g43")}, { $set: {nome: "Elizeu Walker Brizolla", idade: 31} } ) - Altera somente o nome e a idade.
+*   db.clientes.updateOne( {_id: ObjectId("asd6f1as6d1as6sd36f8g43")}, { $unset: {idade: null} } ) - Unset vai remover o campo idade do documento
+*   db.clientes.updateOne( {_id: ObjectId("asd6f1as6d1as6sd36f8g43")}, { $inc: {idade: 1} }) - Incrementa um na idade
+*   db.clientes.updateOne( {_id: ObjectId("asd6f1as6d1as6sd36f8g43")}, { $inc: {idade: -1} }) - Decrementa um na idade
+*   db.clientes.updateOne( {_id: ObjectId("asd6f1as6d1as6sd36f8g43")}, { $mul: {idade: 2} }) - Multiplica a idade por 2
+*   db.clientes.updateOne( {_id: ObjectId("asd6f1as6d1as6sd36f8g43")}, { $mul: {idade: 1/3} }) - Divide a idade por 3
+*   db.clientes.updateOne( {nome: "Juca"}, {$set: {idade: 18}}, {upsert: true}) - Obervar o terceiro parâmetro upsert. Upsert vai fazer com que o seja criado um novo documento caso não exista o documento com os parâmetros de busca;
